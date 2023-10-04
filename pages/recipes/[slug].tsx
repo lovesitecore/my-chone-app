@@ -7,10 +7,8 @@ import { HOMEPAGE_ID } from "../../lib/Common/constants";
 import Homepage from "../../types/Homepage/homepage-type";
 import HeaderComponent from "../../components/Homepage/header-component";
 import FooterComponent from "../../components/Homepage/footer-component";
-import { richTextProfile } from "../../lib/Common/richTextConfiguration";
-import { generateHTML } from "@tiptap/html";
-import Image from 'next/image'
 import HeroBanner from "../../components/Homepage/hero-banner";
+import RichText from "../../components/Common/richText-component";
 
 const Renderer = require("prosemirror-to-html-js").Renderer;
 
@@ -49,8 +47,6 @@ type Params = {
 
 const Post = ({recipe,homepage}: Props) => {
     
-    const output = generateHTML(recipe?.preparationDescriptionRt,[richTextProfile]);
-
     return (
         <div className={stylesHp.container}>
             <Head>
@@ -76,7 +72,9 @@ const Post = ({recipe,homepage}: Props) => {
                       <strong>Ingredients:</strong> {recipe?.Ingredients}
                     </p>
 
-                    <p dangerouslySetInnerHTML={{ __html: output }} />
+                    <RichText 
+                      richText={recipe?.preparationDescriptionRt} 
+                    />
                 </div>
                 <FooterComponent
                     allFooters={homepage.footer}
